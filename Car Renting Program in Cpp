@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+// Cars
+struct Car {
+    string name;
+    int dailyRentalPrice;
+};
+
+// Function to display the car menu
+void displayCarMenu(Car cars[], int size) {
+    cout << "\nAvailable Cars:\n";
+    cout << "--\n";
+    cout << setw(5) << "No" << setw(25) << "Cars Name\n" << setw(20) << "Daily Rent (Rs)\n";
+    cout << "--\n";
+    for (int i = 0; i < size; i++) {
+        cout << setw(5) << i + 1 << setw(25) << cars[i].name << setw(20) << cars[i].dailyRentalPrice << "\n";
+    }
+    cout << "--\n";
+}
+
+// Function to display the days menu
+void displayDaysMenu() {
+    cout << "\nFor how many days do you need the car?\n";
+    cout << "1. 1 Day\n";
+    cout << "2. 2 Days\n";
+    cout << "3. 3 Days\n";
+    cout << "4. Custom Number of Days\n";
+}
+
+int main() {
+    // Array of cars
+    Car cars[10] = {
+        {"Toyota LC V8", 20000},
+        {"Toyota LC 300", 20000},
+        {"Lexus LX 570", 15000},
+        {"Lexus LX 470", 12000},
+        {"Changan Oshan X7", 10000},
+        {"Mark X 1", 8000},
+        {"Grande Altis 1.8", 7000},
+        {"Honda Civic 2x", 7000},
+        {"Honda City", 6000},
+        {"Suzuki Alto VXR", 4000}
+    };
+
+    int carChoice, dayChoice, numDays;
+    double totalCost;
+
+    cout << "Welcome to the Fuir Cars !\n";
+    displayCarMenu(cars, 10);
+
+    // User selects a car
+    cout << "Enter the number for the car you want to rent: ";
+    cin >> carChoice;
+
+    // Validate car choice
+    if (carChoice < 1 || carChoice > 10) {
+        cout << "Invalid choice! Exiting...\n";
+        return 0;
+    }
+
+    // Display days menu
+    displayDaysMenu();
+    cout << "Enter your choice: ";
+    cin >> dayChoice;
+
+    // Determine the number of days
+    if (dayChoice >= 1 && dayChoice <= 3) {
+        numDays = dayChoice; // 1, 2, or 3 days
+    } else if (dayChoice == 4) {
+        cout << "Enter the custom number of days: ";
+        cin >> numDays;
+        if (numDays < 1) {
+            cout << "Invalid number of days! Exiting...\n";
+            return 0;
+        }
+    } else {
+        cout << "Invalid choice! Exiting...\n";
+        return 0;
+    }
+
+    // Calculate total cost
+    totalCost = cars[carChoice - 1].dailyRentalPrice * numDays;
+
+    // Display the rental details
+    cout << "\nRental Details:\n";
+    cout << "Car: " << cars[carChoice - 1].name << "\n";
+    cout << "Daily Rental Price: Rs " << cars[carChoice - 1].dailyRentalPrice << "\n";
+    cout << "Number of Days: " << numDays << "\n";
+    cout << "Total Cost: Rs " << totalCost << "\n";
+    cout << "Payment in cash, please, on the counter.\n";
+
+    return 0;
+}
